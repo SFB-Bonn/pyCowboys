@@ -6,22 +6,25 @@ from utils.cowboy import cowboy
 
 class circle(object):
     def __init__(self, num_cowboys: int) -> None:
+        '''define circle with n cowboys'''
         self.number: int = num_cowboys
         self.order: dict[str, cowboy] = self._create_order()
         self.round_metrics: list[dict] = []
 
     def _create_order(self) -> dict:
+        '''create initial circle order'''
         tmp_circle: dict[str, cowboy] = {}
-        order: list[str] = []
+        # order: list[str] = []
         for i in range(0, self.number):
             name = "cowboy_" + str(i)
-            ith_cowboy: cowboy = cowboy(name)
-            tmp_circle[name] = ith_cowboy
-            order.append(ith_cowboy.name)
-        tmp_circle = self._define_neighbors(tmp_circle)
+            # ith_cowboy: cowboy = cowboy(name)
+            tmp_circle[name] = cowboy(name)
+            # order.append(ith_cowboy.name)
+        tmp_circle = self._tell_neighbors(tmp_circle)
         return tmp_circle
 
-    def _define_neighbors(self, order: dict[str, cowboy]) -> dict[str, cowboy]:
+    def _tell_neighbors(self, order: dict[str, cowboy]) -> dict[str, cowboy]:
+        '''tell cowboys their neigbors'''
         names: tuple = tuple(order.keys())
         for i, name in enumerate(names):
             if i == 0:
@@ -38,11 +41,10 @@ class circle(object):
         return order
 
     def high_noon(self):
+        ''' start the shooting '''
         names: tuple = tuple(self.order.keys())
         first_no: int = random.randint(0, len(names)-1)
         next_shooter: str = names[first_no]
-        # while (len(self.order) > 0):
-        #    next_shooter = self.shoot_another_round(next_shooter)
         self.shoot_another_round(next_shooter)
 
     def shoot_another_round(self, name) -> str:

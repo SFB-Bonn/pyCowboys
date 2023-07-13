@@ -5,6 +5,8 @@ import random
 
 class cowboy(object):
     def __init__(self, new_name: str) -> None:
+        ''' init with name and LP/health
+        needs to know their neighbor'''
         self.name: str = new_name
         self.health: int = 10
         self._left_hand: str = ""
