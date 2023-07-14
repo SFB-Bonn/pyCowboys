@@ -10,6 +10,7 @@ class circle(object):
         self.number: int = num_cowboys
         self.order: dict[str, cowboy] = self._create_order()
         self.round_metrics: list[dict] = []
+        self.first_shooter: str = ""
 
     def _create_order(self) -> dict:
         '''create initial circle order'''
@@ -44,8 +45,8 @@ class circle(object):
         ''' start the shooting '''
         names: tuple = tuple(self.order.keys())
         first_no: int = random.randint(0, len(names)-1)
-        next_shooter: str = names[first_no]
-        self.shoot_another_round(next_shooter)
+        self.first_shooter: str = names[first_no]
+        self.shoot_another_round(self.first_shooter)
 
     def shoot_another_round(self, name) -> str:
         shooter: cowboy = self.order[name]
@@ -95,4 +96,5 @@ class circle(object):
         report = json.dumps(self.round_metrics, indent=2)
         print(report)
         last_man_standing: str = list(self.order.keys())[0]
-        print(f"\n\n{last_man_standing} won")
+        print(f"\n\n{self.first_shooter} started")
+        print(f"\n{last_man_standing} won")
