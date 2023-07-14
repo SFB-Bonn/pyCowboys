@@ -13,5 +13,5 @@ class args(object):
             prog=self._prog_name,
             description=self._desc,
             epilog=self._epilog)
-        self._parser.add_argument('-n', '--number', default=5)
+        self._parser.add_argument('-n', '--number', default=5, type=int)
         self.args: argparse.Namespace = self._parser.parse_args()
